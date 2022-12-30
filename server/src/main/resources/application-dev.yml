@@ -7,12 +7,12 @@ spring:
       ddl-auto: none
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${DB_HOST_NAME}/${DB_STORAGE_NAME}?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${DB_AUTH_ID}
-    password: ${DB_AUTH_PASSWORD}
+    url: jdbc:mariadb://localhost:3306?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
   redis:
-    host: ${SPRING_REDIS_HOST}
-    port: ${SPRING_REDIS_PORT}
+    host: localhost
+    port: 6379
   security:
     oauth2:
       client:
@@ -29,43 +29,52 @@ spring:
             userNameAttribute: response
         registration:
           google:
-            clientId: ${OAUTH2_GOOGLE_CLIENT_ID}
-            clientSecret: ${OAUTH2_GOOGLE_SECRET}
+            clientId: 321756353789-g576uholp15jco215a06h1dgso5thp24.apps.googleusercontent.com
+            clientSecret: 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
+            redirect-uri: https://codetech.nworld.dev/login/oauth2/code/google
+            authorization-grant-type: authorization_code
             scope:
               - email
               - profile
-            redirectUri: https://codetech.nworld.dev/login/oauth2/code/google
-            authorization-grant-type: authorization_code
           naver:
-            clientId: ${OAUTH2_NAVER_CLIENT_ID}
-            clientSecret: ${OAUTH2_NAVER_SECRET}
+            clientId: 7H590XwmpkB_tq1K_bI7
+            clientSecret: E_OJywEPPm
             clientAuthenticationMethod: post
-            authorizationGrantType: authorization_code
-            redirectUri: https://codetech.nworld.dev/login/oauth2/code/naver
+            authorization-grant-type: authorization_code
+            redirectUri: "http://codetech.nworld.dev/login/oauth2/code/naver"
             scope:
               - nickname
               - profile_image
               - email
             clientName: Naver
           kakao:
-            clientId: ${OAUTH2_KAKAO_CLIENT_ID}
-            clientSecret: ${OAUTH2_KAKAO_SECRET}
+            clientId: 8eafbe150915e4f53b97c2cd278cb8e4
+            clientSecret: 5w4KhZQilkXRuSFrtD6EwILMcWUoltZc
             clientAuthenticationMethod: post
-            authorizationGrantType: authorization_code
-            redirectUri: https://codetech.nworld.dev/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            redirectUri: http://codetech.nworld.dev/login/oauth2/code/kakao
             scope:
-                - profile_nickname
-                - profile_image
+              - profile_nickname
+              - profile_image
             clientName: kakao
   mail:
     host: smtp.naver.com
     port: 465
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
+    username: heakwangcodetech@naver.com
+    password: Codetech!@#$11
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 300
-  refresh-token-expiration-minutes: 420
+  secret-key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY2ODU4NjIwMSwiaWF0IjoxNjY4NTg2MjAxfQ.9AwIFu34UEm>
+  access-token-expiration-minutes: 1
+  refresh-token-expiration-minutes: 10080
+
+server:
+  tomcat:
+    remoteip:
+      remote-ip-header: X-Forwarded-For
+      protocol-header: X-Forwarded-Proto
+    use-relative-redirects: true
+    redirect-context-root: false
+    forward-headers-strategy: native
 
 filePath: /images/
